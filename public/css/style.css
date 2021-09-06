@@ -141,7 +141,7 @@ input {
   text-align-last: right;
   outline: none;
   color: #6c7686;
-  height: 30px;
+  height: 32px;
   box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.25);
 }
 .ProcessContainer .ProcessMain .ProcessList__Border select:hover {
@@ -161,11 +161,11 @@ input {
   color: #fff;
   border-top: 1px solid #cdd6df;
   border-left: 1px solid #cdd6df;
-  border-bottom: solid 1px #7290ac;
-  border-right: solid 1px #7290ac;
+  border-bottom: 2px solid #7694b180;
+  border-right: 1px solid #cdd6df;
   border-radius: 4px;
   margin: 5px;
-  box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.2);
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
 }
@@ -176,7 +176,7 @@ input {
   -webkit-transform: translateY(2px);
   transform: translateY(2px);
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.35);
-  border-bottom: none;
+  border: 1px solid #b7cadc;
 }
 .ProcessContainer .ProcessMain .ProcessList__Border .AddPlan:after {
   position: absolute;
@@ -245,14 +245,14 @@ input {
   line-height: 20px;
   text-align: center;
   color: #6c7686;
-  border-top: 1px solid #cdd6df;
-  border-left: 1px solid #cdd6df;
-  border-bottom: solid 1px #7290ac;
-  border-right: solid 1px #7290ac;
+  border-top: 1px solid #d7d7d7;
+  border-left: 1px solid #d7d7d7;
+  border-bottom: solid 2px #899daf6e;
+  border-right: 1px solid #d7d7d7;
   border-radius: 10px;
   margin: auto 2px;
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.65);
-  box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 4px 0PX rgba(0, 0, 0, 0.2);
 }
 .ProcessContainer .ProcessMain .Result__Border .Flex .AddCount:hover {
   cursor: pointer;
@@ -261,7 +261,7 @@ input {
   -webkit-transform: translateY(2px);
   transform: translateY(2px);
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.35);
-  border-bottom: none;
+  border: 1px solid #e2f1f1;
 }
 .ProcessContainer .ProcessMain .Result__Border .Flex .DeleteButton {
   background: #b7cadc;
@@ -274,13 +274,13 @@ input {
   border: 2px solid #b7cadc;
   border-radius: 4px;
   margin: 5px 0 5px 10px;
-  box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.2);
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
   border-top: 1px solid #cdd6df;
   border-left: 1px solid #cdd6df;
-  border-bottom: solid 1px #7290ac;
-  border-right: solid 1px #7290ac;
+  border-bottom: solid 2px #7694b180;
+  border-right: solid 1px #cdd6df;
 }
 .ProcessContainer .ProcessMain .Result__Border .Flex .DeleteButton:hover {
   cursor: pointer;
@@ -289,5 +289,5 @@ input {
   -webkit-transform: translateY(2px);
   transform: translateY(2px);
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.35);
-  border-bottom: none;
+  border: 1px solid #b7cadc;
 }

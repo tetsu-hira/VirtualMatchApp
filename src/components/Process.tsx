@@ -1,5 +1,6 @@
 import { useState } from "react";
 import * as React from 'react';
+import Excel from "./Excel";
 // import { DragDropContext, Droppable } from "react-beautiful-dnd"
 // import { useEffect } from "react";
 // import Select from 'react-select';
@@ -560,20 +561,21 @@ const Process: React.FC = () => {
           </div>
           <div className="Result">
             <h1 className="title">{ message }</h1>
-                  <div className="Result__Border">
-                    { plan.map((item, idx: number) => (
-                          <div className="Flex" key={idx}>
-                            <div className="ResultIndex">{idx}</div>
-                            <div className="ResultName">{item.name}</div>
-                            <div className="ResultTime">{item.time.toFixed(2)}h</div>
-                            <button className="AddCount" onClick={()=> addTime(idx, -0.25)}>-0.25</button>
-                            <button className="AddCount" onClick={()=> addTime(idx, 0.25)}>+0.25</button>
-                            <button className="AddCount" onClick={()=> addTime(idx, 1.00)}>+1.00</button>
-                            <button className="AddCount" onClick={()=> addTime(idx, 10.0)}>+10.0</button>
-                            <button className="DeleteButton" onClick={()=> handleRemoveTask(idx)}>削 除</button>
-                          </div>
-                    )) }
-                  </div>
+            <div className="Result__Border">
+              { plan.map((item, idx: number) => (
+                    <div className="Flex" key={idx}>
+                      <div className="ResultIndex">{idx}</div>
+                      <div className="ResultName">{item.name}</div>
+                      <div className="ResultTime">{item.time.toFixed(2)}h</div>
+                      <button className="AddCount" onClick={()=> addTime(idx, -0.25)}>-0.25</button>
+                      <button className="AddCount" onClick={()=> addTime(idx, 0.25)}>+0.25</button>
+                      <button className="AddCount" onClick={()=> addTime(idx, 1.00)}>+1.00</button>
+                      <button className="AddCount" onClick={()=> addTime(idx, 10.0)}>+10.0</button>
+                      <button className="DeleteButton" onClick={()=> handleRemoveTask(idx)}>削 除</button>
+                    </div>
+              )) }
+            </div>
+            <Excel />
           </div>
         </div>
       </div>
