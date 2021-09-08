@@ -1,7 +1,14 @@
 import * as React from 'react';
 import ExcelJS from "exceljs";
+import { useState } from 'react';
+
+type Cell = {
+  name: string
+  time: number
+}
 
 const Excel: React.FC = () => {
+  const [ data, setData ] = useState<Cell[]>([]);
   const handleClickDownloadButton = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     format:  "xlsx" | "csv"
@@ -13,26 +20,11 @@ const Excel: React.FC = () => {
     const worksheet = workbook.getWorksheet("sheet1");
 
     worksheet.columns = [
-      { header: "No.", key: "id"},
       { header: "工程", key: "name"},
       { header: "時間", key: "time"}
     ];
 
-    worksheet.addRows([
-      {
-        id: 0,
-        name: "開始",
-        time: 0.10
-      },{
-        id: 1,
-        name: "MV2",
-        time: 0.25
-      },{
-        id: 2,
-        name: "岡熱",
-        time: 0.10
-      }
-    ]);
+    worksheet.addRows(data);
     
     const uint8Array =
       format === "xlsx"
@@ -46,15 +38,17 @@ const Excel: React.FC = () => {
     a.click();
     a.remove();
   };
-
+  console.log(data);
   return (
     <>
-        <button onClick={(e) => handleClickDownloadButton(e, "xlsx")}>
+      <div>
+        <button onClick={(e) => {setData(data); handleClickDownloadButton(e, "xlsx")}}>
           Excel形式
         </button>
         <button onClick={(e) => handleClickDownloadButton(e, "csv")}>
           CSV形式
         </button>
+      </div>
     </>
   );
 };

@@ -112,6 +112,7 @@ input {
 
 .Process {
   min-width: 960px;
+  margin-bottom: 50px;
 }
 .ProcessContainer {
   margin: auto 0;
@@ -200,7 +201,7 @@ input {
   height: 30px;
   content: "\f061";
   -webkit-transform: translateX(460%) translateY(0.5rem);
-  transform: translateX(250%) translateY(-0.1rem);
+  transform: translateX(250%) translateY(-2px);
   color: #fff;
   border-radius: 50%;
 }

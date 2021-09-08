@@ -1,5 +1,6 @@
 .Process {
   min-width: 960px;
+  margin-bottom: 50px;
   &Container {
     margin: auto 0;
     padding-top: 72px;
@@ -83,7 +84,7 @@
               height: 30px;
               content: '\f061';
               -webkit-transform: translateX(460%) translateY(.5rem);
-              transform: translateX(250%) translateY(-0.1rem);
+              transform: translateX(250%) translateY(-2px);
               color: #fff;
               border-radius: 50%;
             }

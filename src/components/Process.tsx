@@ -1,6 +1,7 @@
 import { useState } from "react";
 import * as React from 'react';
-import Excel from "./Excel";
+import ExcelJS from "exceljs";
+import File from "./File";
 // import { DragDropContext, Droppable } from "react-beautiful-dnd"
 // import { useEffect } from "react";
 // import Select from 'react-select';
@@ -341,6 +342,10 @@ type Pros = {
   name: string
   time: number
 }
+// type Cell = {
+//   name: string
+//   time: number
+// }
 // const reorder = (
 //   list: ItemType[],
 //   startIndex: number,
@@ -409,6 +414,38 @@ const Process: React.FC = () => {
     setTime(targetPlan.time)
     console.log(time);
   }
+
+  // const [ data, setData ] = useState<Pros[]>([]);
+  const handleClickDownloadButton = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    format:  "xlsx" | "csv"
+  ) => {
+    e.preventDefault();
+
+    const workbook = new ExcelJS.Workbook();
+    workbook.addWorksheet("sheet1");
+    const worksheet = workbook.getWorksheet("sheet1");
+
+    worksheet.columns = [
+      { header: "No.", key: "id", width: 10 },
+      { header: "工程", key: "name", width: 20},
+      { header: "時間", key: "time", width: 20}
+    ];
+
+    worksheet.addRows(plan);
+    
+    const uint8Array =
+      format === "xlsx"
+        ? await workbook.xlsx.writeBuffer() //xlsxの場合
+        : await workbook.csv.writeBuffer(); //csvの場合
+    const blob = new Blob([uint8Array], { type: "application/octet-binary "});
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "NewFile." + format; //フォーマットによって拡張子を変える
+    a.click();
+    a.remove();
+  };
 
   
 
@@ -575,10 +612,18 @@ const Process: React.FC = () => {
                     </div>
               )) }
             </div>
-            <Excel />
+            <div>
+              <button onClick={(e) => handleClickDownloadButton(e, "xlsx")}>
+                Excel印刷
+              </button>
+              {/* <button onClick={(e) => handleClickDownloadButton(e, "csv")}>
+                CSV形式
+              </button> */}
+            </div>
           </div>
         </div>
       </div>
+      <File />
     </div>
   )
 }
