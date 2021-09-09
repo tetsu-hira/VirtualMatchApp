@@ -1,7 +1,7 @@
 import { useState } from "react";
 import * as React from 'react';
 import ExcelJS from "exceljs";
-import File from "./File";
+// import File from "./File";
 // import { DragDropContext, Droppable } from "react-beautiful-dnd"
 // import { useEffect } from "react";
 // import Select from 'react-select';
@@ -623,7 +623,6 @@ const Process: React.FC = () => {
           </div>
         </div>
       </div>
-      <File />
     </div>
   )
 }

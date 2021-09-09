@@ -30,22 +30,23 @@ const File: React.FC = () => {
   }
 
   return (
-    <div>
-      <p>Excelファイルをアップロードする</p>
-      <button onClick={() => handleTriggerReadFile()}>ファイル選択</button>
-      {!!fileName && <span>ファイル名：{fileName}</span>}
-      <form>
-        <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" ref={fileInput} onChange={(e) => {
-          e.preventDefault();
-          handleReadFile(e.currentTarget.files[0])
-        }}/>
-      </form>
-      {!!excelData && (
-        <div>
-          {excelData}
-        </div>
-      )}
-    </div>
+    <li className="JumpList">
+      {/* <div className="File__container"> */}
+        <button onClick={() => handleTriggerReadFile()} className="JumpList__item">FILE</button>
+        {!!fileName && <span>ファイル名：{fileName}</span>}
+        <form style={{ display: 'none' }}>
+          <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" ref={fileInput} onChange={(e) => {
+            e.preventDefault();
+            handleReadFile(e.currentTarget.files[0])
+          }}/>
+        </form>
+        {!!excelData && (
+          <div>
+            {excelData}
+          </div>
+        )}
+      {/* </div> */}
+    </li>
   )
 }
 

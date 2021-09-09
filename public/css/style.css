@@ -49,6 +49,15 @@ input {
   display: block;
 }
 
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  appearance: none;
+}
+
 .Footer {
   position: absolute;
   bottom: 0;
@@ -84,18 +93,21 @@ input {
 .Header h1 a:hover {
   opacity: 0.6;
 }
-.Header .JumpList {
+.Header .Jump {
   display: flex;
   line-height: 2;
 }
-.Header .JumpList__item {
+.Header .JumpList {
   height: 100%;
   width: 96px;
   display: inline-block;
   padding: 0;
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.65);
 }
-.Header .JumpList__item a {
+.Header .JumpList button {
+  text-decoration: none;
+}
+.Header .JumpList__item {
   margin: auto;
   text-align: center;
   display: block;
@@ -104,8 +116,9 @@ input {
   color: #6c7686;
   font-weight: 600;
   line-height: 3.4;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.65);
 }
-.Header .JumpList__item a:hover {
+.Header .JumpList__item:hover {
   opacity: 0.6;
   transition: 0.1s;
 }
@@ -116,7 +129,7 @@ input {
 }
 .ProcessContainer {
   margin: auto 0;
-  padding-top: 72px;
+  padding-top: 64px;
   width: 93%;
 }
 .ProcessContainer .ProcessMain {
@@ -137,7 +150,7 @@ input {
   -moz-appearance: none;
   appearance: none;
   padding: 0 9px;
-  margin: 5px;
+  margin: 4px;
   border: 1px solid #b7cadc;
   text-align-last: right;
   outline: none;
@@ -165,7 +178,7 @@ input {
   border-bottom: 2px solid #7694b180;
   border-right: 1px solid #cdd6df;
   border-radius: 4px;
-  margin: 5px;
+  margin: 4px;
   box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.2);
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
@@ -252,6 +265,7 @@ input {
   border-right: 1px solid #d7d7d7;
   border-radius: 10px;
   margin: auto 2px;
+  padding: 0px 5px;
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.65);
   box-shadow: 0px 1px 4px 0PX rgba(0, 0, 0, 0.2);
 }
