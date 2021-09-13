@@ -430,7 +430,7 @@ const Process: React.FC = () => {
     const worksheet = workbook.getWorksheet("sheet1");
 
     worksheet.columns = [
-      { header: "No.", key: "id", width: 10 },
+      { header: "No.", key: "", width: 10 },
       { header: "工程", key: "name", width: 20},
       { header: "時間", key: "time", width: 20}
     ];
