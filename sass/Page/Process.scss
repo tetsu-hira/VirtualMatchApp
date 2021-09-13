@@ -125,19 +125,19 @@
               background: $SubColor;
               font-size: 12px;
               width: 43px;
-              height: 23px;
-              line-height: 20px;
+              height: 22px;
+              // line-height: 20px;
               text-align: center;
               color: $FontColor;
               border-top: 1px solid rgb(215, 215, 215);
               border-left: 1px solid rgb(215, 215, 215);
-              border-bottom: solid 2px #899daf6e;
-              border-right: 1px solid rgb(215, 215, 215);
+              border-bottom: 1px solid #9dabb780;
+              border-right: 1px solid #9dabb780;
               border-radius: 10px;
               margin: auto 2px;
               padding: 0px 5px;
               text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.65);
-              box-shadow: 0px 1px 4px 0PX rgba(0, 0, 0, 20%);
+              box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 20%);
               &:hover {
                 cursor: pointer;
               }

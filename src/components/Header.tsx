@@ -11,8 +11,7 @@ const Header: React.FC = () => {
         <a href="/">Process Design</a>
       </h1>
       <ul className="Jump">
-      <File />
-
+        <File />
         <li className="JumpList">
           <a href="/" className="JumpList__item">GOAL</a>
         </li>
