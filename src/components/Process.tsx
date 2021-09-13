@@ -2,7 +2,7 @@ import { useState } from "react";
 import * as React from 'react';
 import ExcelJS from "exceljs";
 // import File from "./File";
-// import { DragDropContext, Droppable } from "react-beautiful-dnd"
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 // import { useEffect } from "react";
 // import Select from 'react-select';
 // import ReactDOM from "react-dom";
@@ -341,6 +341,7 @@ const EN: Pro[] = [
 type Pros = {
   name: string
   time: number
+  count: string
 }
 // type Cell = {
 //   name: string
@@ -357,10 +358,12 @@ type Pros = {
 
 //   return result;
 // };
+const a:string = "a"
 
 const Process: React.FC = () => {
-  const [ plan, setPlan] = useState<Pros[]>([{name: "開始", time: 0.10}]);
+  const [ plan, setPlan] = useState<Pros[]>([{name: "開始", time: 0.10, count: "b"}]);
   const [ time, setTime ] = useState<number>(0);
+  const [ count, setCount ] = useState<string>("a");
   const [ mcName, setMCName] = useState<string>(MC[0].name);
   const [ leName, setLEName] = useState<string>(LE[0].name);
   const [ mvName, setMVName] = useState<string>(MV[0].name);
@@ -379,23 +382,23 @@ const Process: React.FC = () => {
   const [ flName, setFLName] = useState<string>(FL[0].name);
   const [ enName, setENName] = useState<string>(EN[0].name);
 
-  const clickAddMC = () => {setPlan([...plan, {name: mcName, time: 0.25 }]);}
-  const clickAddLE = () => {setPlan([...plan, {name: leName, time: 0.25 }]);}
-  const clickAddMV = () => {setPlan([...plan, {name: mvName, time: 0.25 }]);}
-  const clickAddHQ = () => {setPlan([...plan, {name: hqName, time: 0.25 }]);}
-  const clickAddSL = () => {setPlan([...plan, {name: slName, time: 0.25 }]);}
-  const clickAddSG = () => {setPlan([...plan, {name: sgName, time: 0.25 }]);}
-  const clickAddCG = () => {setPlan([...plan, {name: cgName, time: 0.25 }]);}
-  const clickAddPG = () => {setPlan([...plan, {name: pgName, time: 0.25 }]);}
-  const clickAddED = () => {setPlan([...plan, {name: edName, time: 0.25 }]);}
-  const clickAddEH = () => {setPlan([...plan, {name: ehName, time: 0.25 }]);}
-  const clickAddJG = () => {setPlan([...plan, {name: jgName, time: 0.25 }]);}
-  const clickAddWQ = () => {setPlan([...plan, {name: wqName, time: 0.25 }]);}
-  const clickAddWP = () => {setPlan([...plan, {name: wpName, time: 0.25 }]);}
-  const clickAddMT = () => {setPlan([...plan, {name: mtName, time: 0.25 }]);}
-  const clickAddCH = () => {setPlan([...plan, {name: chName, time: 0.25 }]);}
-  const clickAddFL = () => {setPlan([...plan, {name: flName, time: 0.25 }]);}
-  const clickAddEN = () => {setPlan([...plan, {name: enName, time: 0.25 }]);}
+  const clickAddMC = () => {setCount(count + a); setPlan([...plan, {name: mcName, time: 0.25, count: count }]);}
+  const clickAddLE = () => {setCount(count + a); setPlan([...plan, {name: leName, time: 0.25, count: count }]);}
+  const clickAddMV = () => {setCount(count + a); setPlan([...plan, {name: mvName, time: 0.25, count: count }]);}
+  const clickAddHQ = () => {setCount(count + a); setPlan([...plan, {name: hqName, time: 0.25, count: count }]);}
+  const clickAddSL = () => {setCount(count + a); setPlan([...plan, {name: slName, time: 0.25, count: count }]);}
+  const clickAddSG = () => {setCount(count + a); setPlan([...plan, {name: sgName, time: 0.25, count: count }]);}
+  const clickAddCG = () => {setCount(count + a); setPlan([...plan, {name: cgName, time: 0.25, count: count }]);}
+  const clickAddPG = () => {setCount(count + a); setPlan([...plan, {name: pgName, time: 0.25, count: count }]);}
+  const clickAddED = () => {setCount(count + a); setPlan([...plan, {name: edName, time: 0.25, count: count }]);}
+  const clickAddEH = () => {setCount(count + a); setPlan([...plan, {name: ehName, time: 0.25, count: count }]);}
+  const clickAddJG = () => {setCount(count + a); setPlan([...plan, {name: jgName, time: 0.25, count: count }]);}
+  const clickAddWQ = () => {setCount(count + a); setPlan([...plan, {name: wqName, time: 0.25, count: count }]);}
+  const clickAddWP = () => {setCount(count + a); setPlan([...plan, {name: wpName, time: 0.25, count: count }]);}
+  const clickAddMT = () => {setCount(count + a); setPlan([...plan, {name: mtName, time: 0.25, count: count }]);}
+  const clickAddCH = () => {setCount(count + a); setPlan([...plan, {name: chName, time: 0.25, count: count }]);}
+  const clickAddFL = () => {setCount(count + a); setPlan([...plan, {name: flName, time: 0.25, count: count }]);}
+  const clickAddEN = () => {setCount(count + a); setPlan([...plan, {name: enName, time: 0.25, count: count }]);}
   
   // const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => { 
   //   setMCName(e.target.value); 
@@ -404,7 +407,7 @@ const Process: React.FC = () => {
 
   const handleRemoveTask = (index:number) => {
     const newPlan = [...plan]
-    newPlan.splice(index,1)
+    newPlan.splice(index, 1)
     setPlan(newPlan)
   }
 
@@ -447,10 +450,16 @@ const Process: React.FC = () => {
     a.remove();
   };
 
-  
+  const handleOnDragEnd = (result:any) => {
+    const items = Array.from(plan);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
 
-  const message: string = "【工程設計】";
+    setPlan(items);
+  }
+
   console.log(plan);
+  
   return (
     <div className="Process">
       <div className="ProcessContainer">
@@ -597,21 +606,32 @@ const Process: React.FC = () => {
             </div>
           </div>
           <div className="Result">
-            <h1 className="title">{ message }</h1>
-            <div className="Result__Border">
-              { plan.map((item, idx: number) => (
-                    <div className="Flex" key={idx}>
-                      <div className="ResultIndex">{idx}</div>
-                      <div className="ResultName">{item.name}</div>
-                      <div className="ResultTime">{item.time.toFixed(2)}h</div>
-                      <button className="AddCount" onClick={()=> addTime(idx, -0.25)}>-0.25</button>
-                      <button className="AddCount" onClick={()=> addTime(idx, 0.25)}>+0.25</button>
-                      <button className="AddCount" onClick={()=> addTime(idx, 1.00)}>+1.00</button>
-                      <button className="AddCount" onClick={()=> addTime(idx, 10.0)}>+10.0</button>
-                      <button className="DeleteButton" onClick={()=> handleRemoveTask(idx)}>削 除</button>
-                    </div>
-              )) }
-            </div>
+            <h1 className="title">【工程設計】</h1>
+            <DragDropContext onDragEnd={handleOnDragEnd}>
+              <Droppable droppableId="Result__Border">
+                {(provided) => (
+                  <div className="Result__Border" {...provided.droppableProps} ref={provided.innerRef}>
+                    { plan.map((item, idx: number) => (
+                      <Draggable key={item.count} draggableId={item.count} index={idx}>
+                        {(provided) => (
+                          <div className="Flex" key={idx} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                            <div className="ResultIndex">{idx}</div>
+                            <div className="ResultName">{item.name}</div>
+                            <div className="ResultTime">{item.time.toFixed(2)}h</div>
+                            <button className="AddCount" onClick={()=> addTime(idx, -0.25)}>-0.25</button>
+                            <button className="AddCount" onClick={()=> addTime(idx, 0.25)}>+0.25</button>
+                            <button className="AddCount" onClick={()=> addTime(idx, 1.00)}>+1.00</button>
+                            <button className="AddCount" onClick={()=> addTime(idx, 10.0)}>+10.0</button>
+                            <button className="DeleteButton" onClick={()=> handleRemoveTask(idx)}>削 除</button>
+                          </div>
+                        )}
+                      </Draggable>
+                    )) }
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
             <div>
               <button onClick={(e) => handleClickDownloadButton(e, "xlsx")}>
                 Excel印刷
@@ -626,6 +646,5 @@ const Process: React.FC = () => {
     </div>
   )
 }
-
 
 export default Process;
