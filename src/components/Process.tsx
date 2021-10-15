@@ -1,11 +1,14 @@
-import { useState } from "react";
-import * as React from 'react';
-import ExcelJS from "exceljs";
+import React, { createContext, useState } from 'react';
+import Match from "./Match";
 // import File from "./File";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 // import { useEffect } from "react";
 // import Select from 'react-select';
 // import ReactDOM from "react-dom";
+
+export type ContextType = any
+export const UserData = createContext<ContextType>({});
+export const TeamData = createContext<ContextType>({});
 
 
 type Pro = {
@@ -343,26 +346,14 @@ type Pros = {
   time: number
   count: string
 }
-// type Cell = {
-//   name: string
-//   time: number
-// }
-// const reorder = (
-//   list: ItemType[],
-//   startIndex: number,
-//   endIndex: number
-// ): ItemType[] => {
-//   const result = Array.from(list);
-//   const [removed] = result.splice(startIndex, 1);
-//   result.splice(endIndex, 0, removed);
 
-//   return result;
-// };
+
 const a:string = "a"
 
 const Process: React.FC = () => {
-  const [ plan, setPlan] = useState<Pros[]>([{name: "開始", time: 0.10, count: "b"}]);
-  const [ time, setTime ] = useState<number>(0);
+  const [ plan, setPlan] = useState<Pros[]>([]);
+  const [ team, setTeam] = useState<Pros[]>([]);
+  // const [ time, setTime ] = useState<number>(0);
   const [ count, setCount ] = useState<string>("a");
   const [ mcName, setMCName] = useState<string>(MC[0].name);
   const [ leName, setLEName] = useState<string>(LE[0].name);
@@ -399,56 +390,48 @@ const Process: React.FC = () => {
   const clickAddCH = () => {setCount(count + a); setPlan([...plan, {name: chName, time: 0.25, count: count }]);}
   const clickAddFL = () => {setCount(count + a); setPlan([...plan, {name: flName, time: 0.25, count: count }]);}
   const clickAddEN = () => {setCount(count + a); setPlan([...plan, {name: enName, time: 0.25, count: count }]);}
+  const clickBtoMC = () => {setCount(count + a); setTeam([...team, {name: mcName, time: 0.25, count: count }]);}
+  const clickBtoLE = () => {setCount(count + a); setTeam([...team, {name: leName, time: 0.25, count: count }]);}
+  const clickBtoMV = () => {setCount(count + a); setTeam([...team, {name: mvName, time: 0.25, count: count }]);}
+  const clickBtoHQ = () => {setCount(count + a); setTeam([...team, {name: hqName, time: 0.25, count: count }]);}
+  const clickBtoSL = () => {setCount(count + a); setTeam([...team, {name: slName, time: 0.25, count: count }]);}
+  const clickBtoSG = () => {setCount(count + a); setTeam([...team, {name: sgName, time: 0.25, count: count }]);}
+  const clickBtoCG = () => {setCount(count + a); setTeam([...team, {name: cgName, time: 0.25, count: count }]);}
+  const clickBtoPG = () => {setCount(count + a); setTeam([...team, {name: pgName, time: 0.25, count: count }]);}
+  const clickBtoED = () => {setCount(count + a); setTeam([...team, {name: edName, time: 0.25, count: count }]);}
+  const clickBtoEH = () => {setCount(count + a); setTeam([...team, {name: ehName, time: 0.25, count: count }]);}
+  const clickBtoJG = () => {setCount(count + a); setTeam([...team, {name: jgName, time: 0.25, count: count }]);}
+  const clickBtoWQ = () => {setCount(count + a); setTeam([...team, {name: wqName, time: 0.25, count: count }]);}
+  const clickBtoWP = () => {setCount(count + a); setTeam([...team, {name: wpName, time: 0.25, count: count }]);}
+  const clickBtoMT = () => {setCount(count + a); setTeam([...team, {name: mtName, time: 0.25, count: count }]);}
+  const clickBtoCH = () => {setCount(count + a); setTeam([...team, {name: chName, time: 0.25, count: count }]);}
+  const clickBtoFL = () => {setCount(count + a); setTeam([...team, {name: flName, time: 0.25, count: count }]);}
+  const clickBtoEN = () => {setCount(count + a); setTeam([...team, {name: enName, time: 0.25, count: count }]);}
   
-  // const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => { 
-  //   setMCName(e.target.value); 
+  // const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   setMCName(e.target.value);
   //   console.log(e);
   //   }
 
-  const handleRemoveTask = (index:number) => {
-    const newPlan = [...plan]
-    newPlan.splice(index, 1)
-    setPlan(newPlan)
-  }
+  // const handleRemoveTask = (index:number) => {
+  //   const newPlan = [...plan]
+  //   newPlan.splice(index, 1)
+  //   setPlan(newPlan)
+  // }
+  // const handleRemoveTeam = (index:number) => {
+  //   const newTeam = [...team]
+  //   newTeam.splice(index, 1)
+  //   setTeam(newTeam)
+  // }
 
-  const addTime = (index:number, minute:number) => {
-    const targetPlan: any = plan.find((elem) => plan[index] === elem )
-    targetPlan.time = targetPlan.time + minute
-    setTime(targetPlan.time)
-    console.log(time);
-  }
+  // const addTime = (index:number, minute:number) => {
+  //   const targetPlan: any = plan.find((elem) => plan[index] === elem )
+  //   targetPlan.time = targetPlan.time + minute
+  //   setTime(targetPlan.time)
+  //   console.log(time);
+  // }
 
   // const [ data, setData ] = useState<Pros[]>([]);
-  const handleClickDownloadButton = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    format:  "xlsx" | "csv"
-  ) => {
-    e.preventDefault();
-
-    const workbook = new ExcelJS.Workbook();
-    workbook.addWorksheet("sheet1");
-    const worksheet = workbook.getWorksheet("sheet1");
-
-    worksheet.columns = [
-      { header: "No.", key: "", width: 10 },
-      { header: "工程", key: "name", width: 20},
-      { header: "時間", key: "time", width: 20}
-    ];
-
-    worksheet.addRows(plan);
-    
-    const uint8Array =
-      format === "xlsx"
-        ? await workbook.xlsx.writeBuffer() //xlsxの場合
-        : await workbook.csv.writeBuffer(); //csvの場合
-    const blob = new Blob([uint8Array], { type: "application/octet-binary "});
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "NewFile." + format; //フォーマットによって拡張子を変える
-    a.click();
-    a.remove();
-  };
 
   const handleOnDragEnd = (result:any) => {
     const items = Array.from(plan);
@@ -456,6 +439,13 @@ const Process: React.FC = () => {
     items.splice(result.destination.index, 0, reorderedItem);
 
     setPlan(items);
+  }
+  const handleOnDragStart = (result:any) => {
+    const items = Array.from(team);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    setTeam(items);
   }
 
   console.log(plan);
@@ -473,7 +463,8 @@ const Process: React.FC = () => {
                     <option key={ item.id }>{ item.name }</option>
                   )) }
                 </select>
-                <button onClick={clickAddMC} className="btn AddPlan">追 加</button>
+                <button onClick={clickAddMC} className="btn AddPlan">A</button>
+                <button onClick={clickBtoMC} className="btn AddPlan">B</button>
               </div>
               <div className="SelectBox">
                 <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>{ setLEName(e.target.value)}} defaultValue={LE[0].name}>
@@ -481,7 +472,8 @@ const Process: React.FC = () => {
                     <option key={ item.id }>{ item.name }</option>
                   )) }
                 </select>
-                <button onClick={clickAddLE} className="btn AddPlan">追 加</button>
+                <button onClick={clickAddLE} className="btn AddPlan">A</button>
+                <button onClick={clickBtoLE} className="btn AddPlan">B</button>
               </div>
               <div className="SelectBox">
                 <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>{ setMVName(e.target.value)}} defaultValue={MV[0].name}>
@@ -489,7 +481,8 @@ const Process: React.FC = () => {
                     <option key={ item.id }>{ item.name }</option>
                   )) }
                 </select>
-                <button onClick={clickAddMV} className="btn AddPlan">追 加</button>
+                <button onClick={clickAddMV} className="btn AddPlan">A</button>
+                <button onClick={clickBtoMV} className="btn AddPlan">B</button>
               </div>
               <div className="SelectBox">
                 <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>{ setHQName(e.target.value)}} defaultValue={HQ[0].name}>
@@ -497,7 +490,8 @@ const Process: React.FC = () => {
                     <option key={ item.id }>{ item.name }</option>
                   )) }
                 </select>
-                <button onClick={clickAddHQ} className="btn AddPlan">追 加</button>
+                <button onClick={clickAddHQ} className="btn AddPlan">A</button>
+                <button onClick={clickBtoHQ} className="btn AddPlan">B</button>
               </div>
               <div className="SelectBox">
                 <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>{ setSLName(e.target.value)}} defaultValue={SL[0].name}>
@@ -505,7 +499,8 @@ const Process: React.FC = () => {
                     <option key={ item.id }>{ item.name }</option>
                   )) }
                 </select>
-                <button onClick={clickAddSL} className="btn AddPlan">追 加</button>
+                <button onClick={clickAddSL} className="btn AddPlan">A</button>
+                <button onClick={clickBtoSL} className="btn AddPlan">B</button>
               </div>
               <div className="SelectBox">
                 <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>{ setSGName(e.target.value)}} defaultValue={SG[0].name}>
@@ -513,7 +508,8 @@ const Process: React.FC = () => {
                     <option key={ item.id }>{ item.name }</option>
                   )) }
                 </select>
-                <button onClick={clickAddSG} className="btn AddPlan">追 加</button>
+                <button onClick={clickAddSG} className="btn AddPlan">A</button>
+                <button onClick={clickBtoSG} className="btn AddPlan">B</button>
               </div>
               <div className="SelectBox">
                 <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>{ setCGName(e.target.value)}} defaultValue={CG[0].name}>
@@ -521,7 +517,8 @@ const Process: React.FC = () => {
                     <option key={ item.id }>{ item.name }</option>
                   )) }
                 </select>
-                <button onClick={clickAddCG} className="btn AddPlan">追 加</button>
+                <button onClick={clickAddCG} className="btn AddPlan">A</button>
+                <button onClick={clickBtoCG} className="btn AddPlan">B</button>
               </div>
               <div className="SelectBox">
                 <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>{ setPGName(e.target.value)}} defaultValue={PG[0].name}>
@@ -529,7 +526,8 @@ const Process: React.FC = () => {
                     <option key={ item.id }>{ item.name }</option>
                   )) }
                 </select>
-                <button onClick={clickAddPG} className="btn AddPlan">追 加</button>
+                <button onClick={clickAddPG} className="btn AddPlan">A</button>
+                <button onClick={clickBtoPG} className="btn AddPlan">B</button>
               </div>
               <div className="SelectBox">
                 <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>{ setEDName(e.target.value)}} defaultValue={ED[0].name}>
@@ -537,7 +535,8 @@ const Process: React.FC = () => {
                     <option key={ item.id }>{ item.name }</option>
                   )) }
                 </select>
-                <button onClick={clickAddED} className="btn AddPlan">追 加</button>
+                <button onClick={clickAddED} className="btn AddPlan">A</button>
+                <button onClick={clickBtoED} className="btn AddPlan">B</button>
               </div>
               <div className="SelectBox">
                 <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>{ setEHName(e.target.value)}} defaultValue={EH[0].name}>
@@ -545,7 +544,8 @@ const Process: React.FC = () => {
                     <option key={ item.id }>{ item.name }</option>
                   )) }
                 </select>
-                <button onClick={clickAddEH} className="btn AddPlan">追 加</button>
+                <button onClick={clickAddEH} className="btn AddPlan">A</button>
+                <button onClick={clickBtoEH} className="btn AddPlan">B</button>
               </div>
               <div className="SelectBox">
                 <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>{ setJGName(e.target.value)}} defaultValue={JG[0].name}>
@@ -553,7 +553,8 @@ const Process: React.FC = () => {
                     <option key={ item.id }>{ item.name }</option>
                   )) }
                 </select>
-                <button onClick={clickAddJG} className="btn AddPlan">追 加</button>
+                <button onClick={clickAddJG} className="btn AddPlan">A</button>
+                <button onClick={clickBtoJG} className="btn AddPlan">B</button>
               </div>
               <div className="SelectBox">
                 <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>{ setWQName(e.target.value)}} defaultValue={WQ[0].name}>
@@ -561,7 +562,8 @@ const Process: React.FC = () => {
                     <option key={ item.id }>{ item.name }</option>
                   )) }
                 </select>
-                <button onClick={clickAddWQ} className="btn AddPlan">追 加</button>
+                <button onClick={clickAddWQ} className="btn AddPlan">A</button>
+                <button onClick={clickBtoWQ} className="btn AddPlan">B</button>
               </div>
               <div className="SelectBox">
                 <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>{ setWPName(e.target.value)}} defaultValue={WP[0].name}>
@@ -569,7 +571,8 @@ const Process: React.FC = () => {
                     <option key={ item.id }>{ item.name }</option>
                   )) }
                 </select>
-                <button onClick={clickAddWP} className="btn AddPlan">追 加</button>
+                <button onClick={clickAddWP} className="btn AddPlan">A</button>
+                <button onClick={clickBtoWP} className="btn AddPlan">B</button>
               </div>
               <div className="SelectBox">
                 <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>{ setMTName(e.target.value)}} defaultValue={MT[0].name}>
@@ -577,7 +580,8 @@ const Process: React.FC = () => {
                     <option key={ item.id }>{ item.name }</option>
                   )) }
                 </select>
-                <button onClick={clickAddMT} className="btn AddPlan">追 加</button>
+                <button onClick={clickAddMT} className="btn AddPlan">A</button>
+                <button onClick={clickBtoMT} className="btn AddPlan">B</button>
               </div>
               <div className="SelectBox">
                 <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>{ setCHName(e.target.value)}} defaultValue={CH[0].name}>
@@ -585,7 +589,8 @@ const Process: React.FC = () => {
                     <option key={ item.id }>{ item.name }</option>
                   )) }
                 </select>
-                <button onClick={clickAddCH} className="btn AddPlan">追 加</button>
+                <button onClick={clickAddCH} className="btn AddPlan">A</button>
+                <button onClick={clickBtoCH} className="btn AddPlan">B</button>
               </div>
               <div className="SelectBox">
                 <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>{ setFLName(e.target.value)}} defaultValue={FL[0].name}>
@@ -593,7 +598,8 @@ const Process: React.FC = () => {
                     <option key={ item.id }>{ item.name }</option>
                   )) }
                 </select>
-                <button onClick={clickAddFL} className="btn AddPlan">追 加</button>
+                <button onClick={clickAddFL} className="btn AddPlan">A</button>
+                <button onClick={clickBtoFL} className="btn AddPlan">B</button>
               </div>
               <div className="SelectBox">
                 <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>{ setENName(e.target.value)}} defaultValue={EN[0].name}>
@@ -601,44 +607,105 @@ const Process: React.FC = () => {
                     <option key={ item.id }>{ item.name }</option>
                   )) }
                 </select>
-                <button onClick={clickAddEN} className="btn AddPlan">追 加</button>
+                <button onClick={clickAddEN} className="btn AddPlan">A</button>
+                <button onClick={clickBtoEN} className="btn AddPlan">B</button>
               </div>
             </div>
           </div>
           <div className="Result">
-            <h1 className="title">【工程設計】</h1>
-            <DragDropContext onDragEnd={handleOnDragEnd}>
-              <Droppable droppableId="Result__Border">
-                {(provided) => (
-                  <div className="Result__Border" {...provided.droppableProps} ref={provided.innerRef}>
-                    { plan.map((item, idx: number) => (
-                      <Draggable key={item.count} draggableId={item.count} index={idx}>
-                        {(provided) => (
-                          <div className="Flex" key={idx} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                            <div className="ResultIndex">{idx}</div>
-                            <div className="ResultName">{item.name}</div>
-                            <div className="ResultTime">{item.time.toFixed(2)}h</div>
-                            <button className="AddCount" onClick={()=> addTime(idx, -0.25)}>-0.25</button>
-                            <button className="AddCount" onClick={()=> addTime(idx, 0.25)}>+0.25</button>
-                            <button className="AddCount" onClick={()=> addTime(idx, 1.00)}>+1.00</button>
-                            <button className="AddCount" onClick={()=> addTime(idx, 10.0)}>+10.0</button>
-                            <button className="DeleteButton" onClick={()=> handleRemoveTask(idx)}>削 除</button>
-                          </div>
-                        )}
-                      </Draggable>
-                    )) }
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
-            </DragDropContext>
-            <div>
-              <button onClick={(e) => handleClickDownloadButton(e, "xlsx")}>
-                Excel印刷
-              </button>
-              {/* <button onClick={(e) => handleClickDownloadButton(e, "csv")}>
-                CSV形式
-              </button> */}
+            <h1 className="teamA">【工程設計】</h1>
+            <div className="ResultContainer">
+              <DragDropContext onDragEnd={handleOnDragEnd}>
+                <Droppable droppableId="Result__Border">
+                  {(provided) => (
+                    <div className="Result__Border" {...provided.droppableProps} ref={provided.innerRef}>
+                      { plan.map((item, idx: number) => (
+                        <Draggable key={item.count} draggableId={item.count} index={idx}>
+                          {(provided) => (
+                            <div className="Flex" key={idx} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                              <div className="ResultName">{item.name}</div>
+                            </div>
+                          )}
+                        </Draggable>
+                      )) }
+                      {provided.placeholder}
+                    </div>
+                  )}
+                </Droppable>
+              </DragDropContext>
+            </div>
+            <hr></hr>
+            <div className="ResultContainer">
+              <DragDropContext onDragEnd={handleOnDragEnd}>
+                <Droppable droppableId="Result__Border">
+                  {(provided) => (
+                    <div className="Result__Border" {...provided.droppableProps} ref={provided.innerRef}>
+                      { team.map((item, idx: number) => (
+                        <Draggable key={item.count} draggableId={item.count} index={idx}>
+                          {(provided) => (
+                            <div className="Flex" key={idx} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                              <div className="ResultName">{item.name}</div>
+                            </div>
+                          )}
+                        </Draggable>
+                      )) }
+                      {provided.placeholder}
+                    </div>
+                  )}
+                </Droppable>
+              </DragDropContext>
+            </div>
+            <h1 className="teamB">【工程設計】</h1>
+          </div>
+          <div className="Start">
+            <h1 className="teamA">【工程設計】</h1>
+            <div className="StartContainer">
+              <DragDropContext onDragEnd={handleOnDragEnd}>
+                <Droppable droppableId="Start__Border">
+                  {(provided) => (
+                    <div className="Start__Border" {...provided.droppableProps} ref={provided.innerRef}>
+                      { plan.map((item, idx: number) => (
+                        <Draggable key={item.count} draggableId={item.count} index={idx}>
+                          {(provided) => (
+                            <div className="Flex" key={idx} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                              <div className="StartName">{item.name}</div>
+                              {/* <button className="DeleteButton" onClick={()=> handleRemoveTask(idx)}>Del</button> */}
+                            </div>
+                          )}
+                        </Draggable>
+                      )) }
+                      {provided.placeholder}
+                    </div>
+                  )}
+                </Droppable>
+              </DragDropContext>
+            </div>
+            <UserData.Provider value={plan}>
+            <TeamData.Provider value={team}>
+            <Match />
+            </TeamData.Provider>
+            </UserData.Provider>
+            <h1 className="teamB">【工程設計】</h1>
+            <div className="StartContainer">
+              <DragDropContext onDragEnd={handleOnDragStart}>
+                <Droppable droppableId="Start__Border">
+                  {(provided) => (
+                    <div className="Start__Border" {...provided.droppableProps} ref={provided.innerRef}>
+                      { team.map((item, idx: number) => (
+                        <Draggable key={item.count} draggableId={item.count} index={idx}>
+                          {(provided) => (
+                            <div className="Flex" key={idx} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                              <div className="StartName">{item.name}</div>
+                              {/* <button className="DeleteButton" onClick={()=> handleRemoveTeam(idx)}>Del</button> */}
+                            </div>
+                          )}
+                        </Draggable>
+                      )) }
+                      {provided.placeholder}
+                    </div>
+                  )}
+                </Droppable>
+              </DragDropContext>
             </div>
           </div>
         </div>
